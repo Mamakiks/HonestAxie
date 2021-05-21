@@ -1,0 +1,25 @@
+<div class="table-responsive-xxl">
+    <table class="table table-striped" id="listTable" >
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">avg_earning</th>
+                <th scope="col">Manager</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% scholarRankingsList.forEach(scholar => { %>
+                <tr>
+                    <td>#<%= scholarRankingsList.indexOf(scholar) + 1 %></td>
+                    <td><%= scholar.username %></td>
+                    <td><%= scholar.avg_earning %></td>
+                    <% if (scholar.manager_idmanager < 2) { %>
+                        <td><b style="color: rgb(6, 6, 255);">MJO</b></td>
+                        <%} else { %>
+                         <td><b style="color: rgb(0, 0, 0);">MLY</b></td>
+                    <% } %>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
