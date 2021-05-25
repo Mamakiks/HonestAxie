@@ -147,7 +147,7 @@ router.get('/', checkAuthenticated, (req, res) => {
             coins[i] = coin;
             i++;
         }
-        const scholarRankingsList = api.scholarRankingsList.sort((b, a) => (a.avg_earning > b.avg_earning) ? 1 : -1);
+        let scholarRankingsList = api.scholarRankingsList.sort((b, a) => (a.avg_earning > b.avg_earning) ? 1 : -1);
         res.render('index', { /* name : req.user.name, */ scholarRankingsList : scholarRankingsList, price : api.result, coins : coins });
     })
 });
@@ -403,4 +403,14 @@ router.post('/change_axie_3/:id', checkAuthenticated, (req, res) => {
     })
 });
 
+
+// Compact List ------------------------------------------------------------------------------------------
+router.get('/compactList', checkAuthenticated, (req, res) => {
+    console.log('Request for Scholar list page recieved');
+    const sqlSelect = "SELECT * FROM scholar";
+    dbconn.conn.query(sqlSelect, (err, result) => {
+        if(err) throw err;
+        res.render('compactList', { data : result });
+    })
+});
 module.exports = router;
