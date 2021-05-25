@@ -133,7 +133,7 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 
-/* ################################## Main Page SECTION ################################## */
+/* ################################## Main Page SECTION ################################### */
 // Home Page
 router.get('/', checkAuthenticated, (req, res) => {
     console.log('Request for home received');
