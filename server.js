@@ -14,7 +14,7 @@ dotenv.config();
 app.set('views', path.join(__dirname, 'html'));
 
 // Set the folder for css, java scripts & images
-app.use(express.static(path.join(__dirname,'css')));
+app.use(express.static(path.join(__dirname,'CSS')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'images')));
 
@@ -23,6 +23,6 @@ app.set('view engine', 'ejs');
 
 app.use('/', routes);
 
-app.listen(3000, () => {
+app.listen(process.env.SERVER_PORT, () => {
     console.log(`Server is running at ${process.env.SERVER_PORT}`);
 });
