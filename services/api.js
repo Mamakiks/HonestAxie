@@ -27,9 +27,8 @@ function ScholarRankings() {
             scholarList.push(newscholar);
         });
     })
-    return scholarList;
+    return scholarList.sort((b, a) => (a.avg_earning > b.avg_earning) ? 1 : -1);
 }
-module.exports.scholarRankingsList = ScholarRankings(); 
 
 function calc(last_month_earning, scholar_cut, valueusd, valuedkk) {
     // Scholar Cut
@@ -42,7 +41,6 @@ function calc(last_month_earning, scholar_cut, valueusd, valuedkk) {
         mslp = Math.round(last_month_earning * (100 - scholar_cut) / 100)
     return [ susd, sdkk, sslp, musd, mdkk, mslp ];
 }
-module.exports.calc = calc;
 
 function createDate() {
     today = new Date();
@@ -52,4 +50,6 @@ function createDate() {
     const noTimeDate = dd+'-'+mm+'-'+yyyy+'-';
     return noTimeDate;
 }
+module.exports.scholarRankingsList = ScholarRankings(); 
+module.exports.calc = calc;
 module.exports.createDate = createDate();
