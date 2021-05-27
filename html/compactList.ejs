@@ -32,7 +32,6 @@
                                 <th scope="col">Start Date</th>
                                 <th scope="col">Note</th>
                                 <th scope="col">Account Address</th>
-                                <th scope="col">QR Expiry</th>
                                 <th scope="col">                        <div id="select" class="select" style="float: right; width: 75px;">
                                     <select onchange="selectManager();" name="manager" id="manager" form="scholar">
                                         <option value="0">All Scholars</option>  
@@ -63,7 +62,6 @@
                                         <button class="btnCopy" onclick="CopyToClipboard('copyAddress2<%= scholar.idscholar %>')" style="border: 0px;">
                                        copy <!-- <img class="thumbImg" href="#" style="width: 20px; cursor: -webkit-grabbing; cursor: grabbing;" src="copy.png" /> -->
                                    </button></td>
-                                    <td><%= scholar.qr_expiry %></td>
                                     <% if (scholar.manager_idmanager < 2) { %>
                                         <td>Mathias</td>
                                         <%} else { %>
