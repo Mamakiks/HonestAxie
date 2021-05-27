@@ -46,6 +46,7 @@ module.exports.new_scholar_post = function (req, res) {
     const formData = { username : req.body.username, account : req.body.account, email : req.body.email, 
         scholar_ronin : req.body.scholar_ronin, manager_ronin : req.body.manager_ronin, start_date : req.body.start_date, picture : req.file.filename,
         note : req.body.note, password : req.password, manager_idmanager : Number(req.body.manager) };
+    formData = api.checkApostrophe(formData);
     const sqlPut = "INSERT INTO scholar SET ? ";
     const query = dbconn.conn.query(sqlPut, formData, (err, results) => {
         if(err) throw err;
@@ -56,10 +57,11 @@ module.exports.new_scholar_post = function (req, res) {
 
 module.exports.edit_scholar = function (req, res) {
     const id = req.params.id;
-    const formData = { username : req.body.username, account : req.body.account, email : req.body.email, 
+    var formData = { username : req.body.username, account : req.body.account, email : req.body.email, 
         scholar_ronin : req.body.scholar_ronin, manager_ronin : req.body.manager_ronin, start_date : req.body.start_date,
         note : req.body.note, password : req.body.password, manager_idmanager : Number(req.body.manager) };
-        const sqlUpdate = "UPDATE scholar SET username='"+formData.username+"', account='"+formData.account+"', email='"+formData.email+"', scholar_ronin='"+formData.scholar_ronin+"', manager_ronin='"+formData.manager_ronin+"', start_date='"+formData.start_date+"', note='"+formData.note+"', password='"+formData.password+"', manager_idmanager='"+formData.manager_idmanager+"' WHERE idscholar='"+id+"'";
+    formData = api.checkApostrophe(formData);
+    const sqlUpdate = "UPDATE scholar SET username='"+formData.username+"', account='"+formData.account+"', email='"+formData.email+"', scholar_ronin='"+formData.scholar_ronin+"', manager_ronin='"+formData.manager_ronin+"', start_date='"+formData.start_date+"', note='"+formData.note+"', password='"+formData.password+"', manager_idmanager='"+formData.manager_idmanager+"' WHERE idscholar='"+id+"'";
     dbconn.conn.query(sqlUpdate, (err, result) => {
         if(err) throw err;
         console.log(result);
@@ -220,7 +222,9 @@ module.exports.profile_change_picture = function (req, res) {
 
 module.exports.profile_edit_note = function (req, res) {
     const id = req.params.id;
-    const sqlUpdate = "UPDATE scholar SET note='"+req.body.note+"' WHERE idscholar='"+id+"'";
+    var note = { note : req.body.note }
+    note = api.checkApostrophe(note)
+    const sqlUpdate = "UPDATE scholar SET note='"+note.note+"' WHERE idscholar='"+id+"'";
     dbconn.conn.query(sqlUpdate, (err, result) => {
         if(err) throw err;
         console.log(result);

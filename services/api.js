@@ -50,6 +50,20 @@ function createDate() {
     const noTimeDate = dd+'-'+mm+'-'+yyyy+'-';
     return noTimeDate;
 }
+
+function checkApostrophe(data) { // Remove Apostrophe from string
+    const newData = data;
+    const regex = /'/g; // Regular expression to remove all occurences of '
+    for(const key of Object.keys(newData)) {
+        var str = newData[key];
+        if(typeof str === 'string')
+            if(str.includes("'")) newData[key] = str.replace(regex, "");
+
+    }
+    return newData;
+}
+
 module.exports.scholarRankingsList = ScholarRankings(); 
 module.exports.calc = calc;
 module.exports.createDate = createDate();
+module.exports.checkApostrophe = checkApostrophe;

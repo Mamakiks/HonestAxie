@@ -1,6 +1,7 @@
 const dbconn = require('../model/dbconn');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
+const api = require('../services/api');
 const initializePassport = require('../services/passport-config');
 
 module.exports.logIn = function logIn() {
@@ -10,7 +11,7 @@ module.exports.logIn = function logIn() {
         let users = new Array();
         result.forEach(user => {
                 let addUser = { id : user.idmanager, username : user.name, password : user.password}
-                users.push(addUser)
+                users.push(api.checkApostrophe(addUser))
         });
         return initializePassport(    
             passport,
