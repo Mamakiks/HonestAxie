@@ -8,6 +8,8 @@ var authRouter = require('./auth');
 router.use('/', authRouter);
 router.all('/', authCon.checkAuthenticated, indexCon.home_get);
 
+router.get('/tools', authCon.checkAuthenticated, indexCon.tools_get);
+
 router.get('/allscholars', authCon.checkAuthenticated, indexCon.scholarlist_get);
 
 router.get('/compactList', authCon.checkAuthenticated, indexCon.scholarlist_compact_get);

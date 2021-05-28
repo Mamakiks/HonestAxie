@@ -19,6 +19,10 @@ module.exports.home_get = function (req, res) {
     })
 }
 
+module.exports.tools_get = function (req, res) {
+    res.render('tools');
+}
+
 module.exports.scholarlist_get = function (req, res) {
     console.log('Request for Scholar list page recieved');
     const sqlSelect = "SELECT * FROM scholar";
