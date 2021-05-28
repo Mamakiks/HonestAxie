@@ -4,7 +4,7 @@ const passport = require('passport');
 const api = require('../services/api');
 const initializePassport = require('../services/passport-config');
 
-module.exports.logIn = function logIn() {
+function logIn() {
     const sqlSelect = "SELECT * FROM manager";
     dbconn.conn.query(sqlSelect, (err, result) => {
         if(err) throw err;
@@ -21,19 +21,15 @@ module.exports.logIn = function logIn() {
     })
 }
 
-module.exports.login_ = function (req, res) {
-    res.render('login');
-};
+module.exports.login_get = function (req, res) { res.render('login') };
 
-module.exports.changePassword_get = function (req, res) {
-    res.render('changePassword', { message : "" });
-}
+module.exports.changePassword_get = function (req, res) { res.render('changePassword', { message : "" }) };
 
 module.exports.changePassword_post = async function (req, res) {
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         console.log(req.body.username + " and " + req.body.password)
-            const sqlUpdate = "UPDATE manager SET password='"+hashedPassword+"' WHERE name='"+req.body.username+"'";
+        const sqlUpdate = "UPDATE manager SET password='"+hashedPassword+"' WHERE name='"+req.body.username+"'";
         dbconn.conn.query(sqlUpdate, (err, result) => {
             console.log(result)
             const results = Object.values(JSON.parse(JSON.stringify(result)));
@@ -42,6 +38,7 @@ module.exports.changePassword_post = async function (req, res) {
                 res.render('changePassword', { message : 'No such user' } );
             } else {
                 req.logout();
+                logIn()
                 res.redirect('login');
             }
         })
@@ -69,7 +66,7 @@ module.exports.checkNotAuthenticated = function checkNotAuthenticated(req, res, 
     }
     next();
 }
-
+module.exports.logIn = logIn;
 /* loginRouter.get('/register', checkNotAuthenticated, (req, res) => {
     res.render('register');
 }); */

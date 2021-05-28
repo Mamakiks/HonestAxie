@@ -1,4 +1,5 @@
 const dbconn = require('../model/dbconn');
+const axios = require('axios').default;
 
 module.exports.AverageEarnings = function (scholar) {
         // Calculate days since employment
@@ -67,3 +68,10 @@ module.exports.scholarRankingsList = ScholarRankings();
 module.exports.calc = calc;
 module.exports.createDate = createDate();
 module.exports.checkApostrophe = checkApostrophe;
+
+
+
+
+
+
+
