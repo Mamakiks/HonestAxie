@@ -125,11 +125,12 @@ module.exports.select_profile_scholar = function (req, res) {
             let usd = currency[0].usd;
             const getScholar = result[0];
             const calc = api.calc(getScholar.last_month_earning, getScholar.scholar_cut, usd, dkk);
-            const scholarRankingsList = api.scholarRankingsList.sort((b, a) => (a.avg_earning > b.avg_earning) ? 1 : -1);
-            console.log("Scholar " + getScholar.username + " selected")
-            res.render('profile', { data : getScholar, scholarRankingsList : scholarRankingsList,
+            console.log("Scholar " + getScholar.username + " selected");
+            api.doStuff().then((result) =>  {
+            res.render('profile', { data : getScholar, scholarRankingsList : result,
                  scholUSD : calc[0], scholDKK : calc[1], scholSLP : calc[2], 
                  manUSD : calc[3], mandkk : calc[4], manslp : calc[5], dkk : dkk, usd : usd });
+            })
         })
     });
 }
