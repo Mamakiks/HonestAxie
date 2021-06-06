@@ -1,7 +1,7 @@
 const dbconn = require('../model/dbconn');
 const axios = require('axios').default;
 
-module.exports.AverageEarnings = function (start_date, total_earning) {
+function AverageEarnings(start_date, total_earning) {
         // Calculate days since employment
         const today = new Date();
         const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -32,7 +32,6 @@ function ScholarRankings(onResultCallback) {
         })  
     }) 
 }
-module.exports = { doStuff: async() => {return await ScholarRankings()}}
 
 function calc(last_month_earning, scholar_cut, valueusd, valuedkk) {
     // Scholar Cut
@@ -66,7 +65,8 @@ function checkApostrophe(data) { // Remove Apostrophe from string
     }
     return newData;
 }
-
+module.exports.AverageEarnings = AverageEarnings;
+module.exports.rankings = async() => { return await ScholarRankings() };
 module.exports.scholarRankingsList = ScholarRankings(); 
 module.exports.calc = calc;
 module.exports.createDate = createDate();

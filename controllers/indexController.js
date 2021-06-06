@@ -15,7 +15,7 @@ module.exports.home_get = function (req, res) {
             coins[i] = coin;
             i++;
         }
-          api.doStuff().then((result) =>  {
+          api.rankings().then((result) =>  {
                 res.render('index', { /* name : req.user.name, */ scholarRankingsList : result, price : api.result, coins : coins });
           });       
     })
@@ -126,7 +126,7 @@ module.exports.select_profile_scholar = function (req, res) {
             const getScholar = result[0];
             const calc = api.calc(getScholar.last_month_earning, getScholar.scholar_cut, usd, dkk);
             console.log("Scholar " + getScholar.username + " selected");
-            api.doStuff().then((result) =>  {
+            api.rankings().then((result) =>  {
             res.render('profile', { data : getScholar, scholarRankingsList : result,
                  scholUSD : calc[0], scholDKK : calc[1], scholSLP : calc[2], 
                  manUSD : calc[3], mandkk : calc[4], manslp : calc[5], dkk : dkk, usd : usd });
