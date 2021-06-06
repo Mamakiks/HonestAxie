@@ -163,8 +163,6 @@
                                     <div class="col-md-6">
                                         <form id="earnedForm" action="/profile_earned/<%= data.idscholar %>" method="POST">
                                             <input placeholder="Input SLP Earned" name="slp_earned" id="inputSlp" type="number" required>
-                                            <input type="hidden" name="total_earning" value="<%= data.total_earning %>">
-                                            <input type="hidden" name="total_slp_account" value="<%= data.total_slp_account %>">
                                             <button class="btn btn-outline-success btn-sm" name="submit" type="submit">Insert</button>
                                         </form>
                                     </div>
@@ -177,7 +175,6 @@
                                     <div class="col-md-6">
                                         <form action="/profile_earned_withdraw/<%= data.idscholar %>" method="POST">
                                             <input placeholder="Withdraw" name="profile_earned_withdraw" type="number" required>
-                                            <input type="hidden" name="total_earning" value="<%= data.total_earning %>">
                                             <button class="btn btn-outline-danger btn-sm" name="submit" type="submit">Withdraw</button>
                                         </form>
                                     </div>
@@ -190,7 +187,6 @@
                                     <div class="col-md-6">
                                         <form action="/profile_withdrawn/<%= data.idscholar %>" method="POST">
                                             <input placeholder="Input SLP Withdrawn" name="slp_account_withdrawn" type="number" required>
-                                            <input type="hidden" name="total_slp_account" value="<%= data.total_slp_account %>">
                                             <button class="btn btn-outline-dark btn-sm" name="submit" type="submit">Withdraw</button>
                                         </form>
                                     </div>

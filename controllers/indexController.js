@@ -15,7 +15,9 @@ module.exports.home_get = function (req, res) {
             coins[i] = coin;
             i++;
         }
-        res.render('index', { /* name : req.user.name, */ scholarRankingsList : api.scholarRankingsList, price : api.result, coins : coins });
+          api.doStuff().then((result) =>  {
+                res.render('index', { /* name : req.user.name, */ scholarRankingsList : result, price : api.result, coins : coins });
+          });       
     })
 }
 
@@ -140,13 +142,11 @@ module.exports.profile_earned = function (req, res) {
         if(err) throw err;
         let getScholar = result[0];
         // Get scholar data from form
-        const formData = { input_earned : req.body.slp_earned, total_earning : req.body.total_earning, total_slp_account : req.body.total_slp_account };
-        let total_slp = Number(formData.input_earned) + Number(formData.total_slp_account);
-        let total_earning = Number(formData.total_earning) + Number(formData.input_earned);
-        let total_slp_account = Number(formData.input_earned);
+        let total_slp = Number(req.body.slp_earned) + Number(getScholar.total_slp_account);
+        let total_earning = Number(getScholar.total_earning) + Number(req.body.slp_earned);
+        let total_slp_account =+ Number(req.body.slp_earned);
         // Update total_earning and pass it to the function
-        getScholar.total_earning = total_earning;
-        var avgPerDay = api.AverageEarnings(getScholar);
+        var avgPerDay = api.AverageEarnings(getScholar.start_date, total_earning);
         const sqlUpdate = "UPDATE scholar SET total_slp_account='"+total_slp+"', total_earning='"+total_earning+"', last_month_earning='"+total_slp_account+"', avg_earning='"+avgPerDay+"' WHERE idscholar='"+id+"'";
         dbconn.conn.query(sqlUpdate, (err, result) => {
             if(err) throw err;
@@ -154,17 +154,39 @@ module.exports.profile_earned = function (req, res) {
         })
     })
 }
-
+//Withdraw from earnings
+module.exports.select_earned_withdraw = function (req, res) {
+    const id = req.params.id;
+    const sqlSelect = "SELECT * FROM scholar WHERE idscholar = ? ";
+    dbconn.conn.query(sqlSelect, [id], (err, result) => {
+        if(err) throw err;
+        let getScholar = result[0];
+        let total_earning = Number(getScholar.total_earning) - Number(req.body.profile_earned_withdraw);
+        var avgPerDay = api.AverageEarnings(getScholar.start_date, total_earning);
+        const sqlUpdate = "UPDATE scholar SET total_earning='"+total_earning+"', avg_earning='"+avgPerDay+"' WHERE idscholar='"+id+"'";
+        dbconn.conn.query(sqlUpdate, [id], (err, result) => { 
+            if(err) throw err;
+            console.log(result);
+            res.redirect(`/profile/${id}`);
+        })
+    });
+}
+// withdraw from account
 module.exports.profile_withdrawn = function (req, res) {
     const id = req.params.id;
-    const formData = { slp_account_withdrawn : req.body.slp_account_withdrawn, total_slp_account : req.body.total_slp_account };
-    let total_slp = Number(formData.total_slp_account - formData.slp_account_withdrawn);
-    const sqlUpdate = "UPDATE scholar SET total_slp_account='"+total_slp+"' WHERE idscholar='"+id+"'";
-    dbconn.conn.query(sqlUpdate, (err, result) => {
+    const sqlSelect = "SELECT * FROM scholar WHERE idscholar = ? ";
+    dbconn.conn.query(sqlSelect, [id], (err, result) => { 
         if(err) throw err;
-        console.log(result);
-        res.redirect(`/profile/${id}`);
+        let getScholar = result[0];
+        let total_slp = Number(getScholar.total_slp_account - req.body.slp_account_withdrawn);
+        const sqlUpdate = "UPDATE scholar SET total_slp_account='"+total_slp+"' WHERE idscholar='"+id+"'";
+        dbconn.conn.query(sqlUpdate, (err, result) => {
+            if(err) throw err;
+            console.log(result);
+            res.redirect(`/profile/${id}`);
+        })
     })
+
 }
 
 module.exports.profile_cut = function (req, res) {
@@ -172,18 +194,6 @@ module.exports.profile_cut = function (req, res) {
     const formData = { scholar_cut : req.body.scholar_cut  };
     console.log(formData.slp_account)
     const sqlUpdate = "UPDATE scholar SET scholar_cut='"+formData.scholar_cut+"' WHERE idscholar='"+id+"'";
-    dbconn.conn.query(sqlUpdate, (err, result) => {
-        if(err) throw err;
-        console.log(result);
-        res.redirect(`/profile/${id}`);
-    })
-}
-
-module.exports.select_earned_withdraw = function (req, res) {
-    const id = req.params.id;
-    const formData = { profile_earned_withdraw : req.body.profile_earned_withdraw, total_earning : req.body.total_earning  };
-    let total_earning = Number(formData.total_earning) - Number(formData.profile_earned_withdraw);
-    const sqlUpdate = "UPDATE scholar SET total_earning='"+total_earning+"' WHERE idscholar='"+id+"'";
     dbconn.conn.query(sqlUpdate, (err, result) => {
         if(err) throw err;
         console.log(result);
