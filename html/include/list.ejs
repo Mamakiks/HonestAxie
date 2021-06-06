@@ -8,8 +8,9 @@
                         <div id="select" class="select" style="float: right; width: 75px;">
                             <select onchange="selectManager();" name="manager" id="manager" form="scholar">
                                 <option value="0">All Scholars</option>  
-                                <option value="1">MJO Scholars</option>
-                                <option value="2">MLY Scholars</option>
+                                <option value="1">Mathias Sch</option>
+                                <option value="2">Martin Sch</option>
+                                <option value="3">Caspar Sch</option>
                                 <span class="focus"></span>
                             </select>
                         </div>
@@ -51,10 +52,12 @@
                                         <button onclick="CopyToClipboard('copyAddress2<%= scholar.idscholar %>')" style="border: 0px;">
                                         <img href="#" style="width: 20px;  cursor: -webkit-grabbing; cursor: grabbing;" src="copy.png" />
                                    </button></td>
-                                    <% if (scholar.manager_idmanager < 2) { %>
+                                    <% if (scholar.manager_idmanager === 1) { %>
                                         <td>Mathias</td>
-                                        <%} else { %>
+                                        <%} else if(scholar.manager_idmanager === 2) { %>
                                          <td>Martin</td>
+                                        <%} else if(scholar.manager_idmanager === 3) { %>
+                                        <td>Caspar</td>
                                     <% } %>
                                 </tr>
                             <%  }) %> 
