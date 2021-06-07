@@ -11,7 +11,7 @@ function AverageEarnings(start_date, total_earning) {
         // Calculate avg. earning
         const totalEarning = total_earning / Math.floor(Difference_In_Days);
         const totalEarningPerDay = Math.round(totalEarning * 10) / 10;
-        return totalEarning;
+        return totalEarningPerDay;
 }
 
 function ScholarRankings(onResultCallback) {
