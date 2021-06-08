@@ -51,7 +51,7 @@ module.exports.scholarlist_compact_get = function (req, res) {
 module.exports.new_scholar_post = function (req, res) {
     var formData = { username : req.body.username, account : req.body.account, email : req.body.email, 
         scholar_ronin : req.body.scholar_ronin, manager_ronin : req.body.manager_ronin, start_date : req.body.start_date, picture : req.file.filename,
-        note : req.body.note, password : req.password, manager_idmanager : Number(req.body.manager) };
+        note : req.body.note, password : req.body.password, manager_idmanager : Number(req.body.manager) };
     formData = api.checkApostrophe(formData);
     const sqlPut = "INSERT INTO scholar SET ? ";
     const query = dbconn.conn.query(sqlPut, formData, (err, results) => {
