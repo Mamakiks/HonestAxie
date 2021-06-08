@@ -25,6 +25,19 @@ module.exports.tools_get = function (req, res) {
     res.render('tools');
 }
 
+module.exports.gallery_get = function (req, res) {
+    let list = new Array();
+    fs.readdir("images/pictures/", function (err, files) {
+        if (err) {
+            return console.log('Unable to scan directory: ' + err);
+        } 
+        files.forEach(function (file) {
+            list.push(file);
+        });
+        res.render('gallery', { list : list });
+    });
+}
+
 module.exports.scholarlist_get = function (req, res) {
     console.log('Request for Scholar list page recieved');
     const sqlSelect = "SELECT * FROM scholar";
