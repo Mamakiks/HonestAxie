@@ -10,7 +10,7 @@
             display: inline;
         }
         tr:nth-child(even) {
-            background-color:burlywood;
+            background-color: #E3F7FF;
         }
     </style>
 </head>
@@ -28,7 +28,7 @@
                                 <th>#</th>
                                 <th scope="col"><input style="float: left;" type="text" id="myInput" onkeyup="searchList()" placeholder="Search for scholars.."></th>
                                 <th scope="col">Account</th>
-                                <th scope="col">Email</th>
+                                <th scope="col">Avg-SLP</th>
                                 <th scope="col">Scholar Address</th>
                                 <th scope="col">Start Date</th>
                                 <th scope="col">Note</th>
@@ -51,7 +51,7 @@
                                     <td><a href="select/<%= scholar.idscholar %>" class="btn btn-secondary btn-sm">Edit</td>
                                     <td><a href="profile/<%= scholar.idscholar %>"><%= scholar.username %></td>
                                     <td><%= scholar.account %></td>
-                                    <td><%= scholar.email %></td>
+                                    <td><%= scholar.avg_earning %> </td>
                                     <!-- Copy Button -->
                                     <td><p class="pList" id="copyAddress<%= scholar.idscholar %>"><%= scholar.scholar_ronin %></p>
                                         <button class="btnCopy" onclick="CopyToClipboard('copyAddress<%= scholar.idscholar %>')" style="border: 0px;">
