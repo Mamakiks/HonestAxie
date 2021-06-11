@@ -2,21 +2,21 @@ const dbconn = require('../model/dbconn');
 const axios = require('axios').default;
 
 function AverageEarnings(start_date, total_earning) {
-        // Calculate days since employment
-        const today = new Date();
-        const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-        const empDate = new Date(start_date);
-        const Difference_In_Time = lastDayOfMonth.getTime() - empDate.getTime();
-        const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-        // Calculate avg. earning
-        const totalEarning = total_earning / Math.floor(Difference_In_Days);
-        const totalEarningPerDay = Math.round(totalEarning * 10) / 10;
-        return totalEarningPerDay;
+    // Calculate days since employment
+    const today = new Date();
+    const empDate = new Date(start_date);
+    const dateNow = new Date();
+    const Difference_In_Time = dateNow.getTime() - empDate.getTime();
+    const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    // Calculate avg. earning
+    const totalEarning = total_earning / Math.floor(Difference_In_Days);
+    const totalEarningPerDay = Math.round(totalEarning * 10) / 10;
+    return totalEarningPerDay;
 }
 
 function ScholarRankings(onResultCallback) {
     const sqlSelect = "SELECT * FROM scholar";
-    return new Promise(function (resolve,reject) { 
+    return new Promise(function (resolve, reject) { 
         dbconn.conn.query(sqlSelect, (err, result) => {
             if(err) return onResultCallback(err);  
             let scholarList = new Array();
