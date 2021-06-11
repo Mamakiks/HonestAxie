@@ -1,16 +1,27 @@
 <head>
     <style>
         tr,td {
-            border: thin solid;
-        }
-        .pList {
-            display: inline;
+            border: thin solid white;
         }
         .btnCopy {
             display: inline;
         }
         tr:nth-child(even) {
             background-color: #E3F7FF;
+        }
+        td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        }
+
+        td p {
+            width: 100px;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            text-overflow: ellipsis;
+            margin: 0;
         }
     </style>
 </head>
