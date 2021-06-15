@@ -65,6 +65,18 @@ function checkApostrophe(data) { // Remove Apostrophe from string
     }
     return newData;
 }
+
+/* (async () => {
+
+	const url = `https://axieinfinity.com/`;
+
+	const axiosResponse = await axios.get(url);
+
+	console.log('axiosResponse', axiosResponse.data, axiosResponse.status);
+
+
+})(); */
+
 module.exports.AverageEarnings = AverageEarnings;
 module.exports.rankings = async() => { return await ScholarRankings() };
 module.exports.scholarRankingsList = ScholarRankings(); 

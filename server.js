@@ -18,6 +18,11 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use(express.static(path.join(__dirname, 'images')));
 app.use(express.static(path.join(__dirname, 'controllers')));
 app.use(express.static(path.join(__dirname, 'routes')));
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", options => iotions.AllowAnyOrigin()); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 // Set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -25,5 +30,7 @@ app.set('view engine', 'ejs');
 var router = require('./routes');
 app.use('/', router);
 
+
+const getaxi = require('./services/api');
 
 app.listen(process.env.SERVER_PORT, () => console.log(`Server is running at ${process.env.SERVER_PORT}`));

@@ -10,6 +10,8 @@ router.all('/', authCon.checkAuthenticated, indexCon.home_get);
 
 router.get('/tools', authCon.checkAuthenticated, indexCon.tools_get);
 
+router.get('/axies', authCon.checkAuthenticated, indexCon.axies_get);
+
 router.get('/gallery', authCon.checkAuthenticated, indexCon.gallery_get);
 
 router.get('/allscholars', authCon.checkAuthenticated, indexCon.scholarlist_get);

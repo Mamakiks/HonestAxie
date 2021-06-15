@@ -25,6 +25,23 @@ module.exports.tools_get = function (req, res) {
     res.render('tools');
 }
 
+module.exports.axies_get = function (req, res) {
+    console.log('Request for Scholar list page recieved');
+    const sqlSelect = "SELECT * FROM scholar";
+    dbconn.conn.query(sqlSelect, (err, result) => {
+        if(err) throw err;
+        res.render('axies', { data : result });
+    })    
+
+/*     const url = 'https://marketplace.axieinfinity.com/axie/3445?referrer=axie.zone';
+    axios.get(url).then(response => {
+            var obj = response.data;
+            console.log(obj);
+    }).catch(err => {
+        console.log(err)
+    }) */
+}
+
 module.exports.gallery_get = function (req, res) {
     let list = new Array();
     fs.readdir("images/pictures/", function (err, files) {
