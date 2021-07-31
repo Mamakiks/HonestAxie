@@ -10,7 +10,7 @@ function logIn() {
         if(err) throw err;
         let users = new Array();
         result.forEach(user => {
-                let addUser = { id : user.idmanager, username : user.name, password : user.password}
+                let addUser = { id : user.idmanager, username : user.name, password : user.password } // Could add orginization here.
                 users.push(api.checkApostrophe(addUser))
         });
         return initializePassport(    
@@ -38,7 +38,7 @@ module.exports.changePassword_post = async function (req, res) {
                 res.render('changePassword', { message : 'No such user' } );
             } else {
                 req.logout();
-                logIn()
+                logIn();
                 res.redirect('login');
             }
         })
