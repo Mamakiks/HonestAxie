@@ -3,11 +3,10 @@ const axios = require('axios').default;
 
 function AverageEarnings(start_date, total_earning) {
     // Calculate days since employment
-    const today = new Date();
     const empDate = new Date(start_date);
     const dateNow = new Date();
     const Difference_In_Time = dateNow.getTime() - empDate.getTime();
-    const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    const Difference_In_Days = (Difference_In_Time / (1000 * 3600 * 24)) + 1;
     // Calculate avg. earning
     const totalEarning = total_earning / Math.floor(Difference_In_Days);
     const totalEarningPerDay = Math.round(totalEarning * 10) / 10;
