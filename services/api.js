@@ -32,6 +32,25 @@ function ScholarRankings(onResultCallback) {
     }) 
 }
 
+function ScholarRankingsLastMonth(onResultCallback) {
+    const sqlSelect = "SELECT * FROM scholar";
+    return new Promise(function (resolve, reject) { 
+        dbconn.conn.query(sqlSelect, (err, result) => {
+            if(err) return onResultCallback(err);  
+            let scholarList = new Array();
+            result.forEach(scholar => {
+                let newscholar = {
+                    username : scholar.username,
+                    last_month_earning : scholar.last_month_earning,
+                    manager_idmanager : scholar.manager_idmanager
+                }
+                scholarList.push(newscholar);
+            });       
+            resolve(scholarList.sort((b, a) => (a.last_month_earning > b.last_month_earning) ? 1 : -1));
+        })  
+    }) 
+}
+
 function calc(last_month_earning, scholar_cut, valueusd, valuedkk) {
     // Scholar Cut
     const susd = Math.round(last_month_earning * scholar_cut / 100 * valueusd),
@@ -78,6 +97,7 @@ function checkApostrophe(data) { // Remove Apostrophe from string
 
 module.exports.AverageEarnings = AverageEarnings;
 module.exports.rankings = async() => { return await ScholarRankings() };
+module.exports.rankingsLastMonth = async() => { return await ScholarRankingsLastMonth() };
 module.exports.scholarRankingsList = ScholarRankings(); 
 module.exports.calc = calc;
 module.exports.createDate = createDate();

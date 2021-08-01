@@ -16,8 +16,11 @@ module.exports.home_get = function (req, res) {
             i++;
         }
           api.rankings().then((result) =>  {
-                res.render('index', { /* name : req.user.name, */ scholarRankingsList : result, price : api.result, coins : coins });
-          });       
+                api.rankingsLastMonth().then((resultLastMonth) =>  {
+                    console.log(resultLastMonth)
+                    res.render('index', { /* name : req.user.name, */ scholarRankingsList : result, scholarRankingsListLastMonth : resultLastMonth, price : api.result, coins : coins });
+                })
+            });       
     })
 }
 
